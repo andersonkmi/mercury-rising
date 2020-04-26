@@ -1,17 +1,21 @@
 package org.codecraftlabs.mercury;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+
+import javax.annotation.Nonnull;
 import java.io.FileInputStream;
 import java.security.KeyStore;
 import java.security.Security;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Set;
 
 public class PfxReader {
-    public Set<Certificate> getCertificates(String file, String password, SecurityProvider provider) throws PfxReaderException {
-        if (file == null || file.isEmpty()) {
+    @Nonnull
+    public Set<Certificate> getCertificates(@Nonnull String file, @Nonnull String password, @Nonnull SecurityProvider provider) throws PfxReaderException {
+        if (file.isEmpty()) {
             throw new PfxReaderException("Missing PFX file");
         }
 
@@ -29,9 +33,9 @@ public class PfxReader {
                 }
             }
         }
-        catch( Exception e ){
-            e.printStackTrace();
+        catch(Exception exception){
+            //
         }
-        return null;
+        return Collections.emptySet();
     }
 }

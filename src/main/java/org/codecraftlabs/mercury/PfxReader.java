@@ -15,8 +15,10 @@ import java.security.Security;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class PfxReader {
@@ -26,19 +28,16 @@ public class PfxReader {
             throw new PfxReaderException("Missing PFX file");
         }
 
-        Set<Alias> certificates = new HashSet<>();
+        final Set<Alias> certificates = new HashSet<>();
 
         try {
             Security.addProvider(new BouncyCastleProvider());
-            KeyStore ks = KeyStore.getInstance(provider.getType(), provider.getProviderName());
+            final KeyStore ks = KeyStore.getInstance(provider.getType(), provider.getProviderName());
             ks.load(new FileInputStream(file), password.toCharArray());
 
-            Enumeration<String> aliases = ks.aliases();
-
-            while (aliases.hasMoreElements()) {
-                String alias = aliases.nextElement();
+            List<String> aliases = Collections.list(ks.aliases());
+            for (String alias : aliases) {
                 Alias aliasItem = new Alias(alias);
-
                 if (ks.isCertificateEntry(alias)) {
                     X509Certificate cerCert = (X509Certificate) ks.getCertificate(alias);
                     aliasItem.setCertificate(cerCert);
@@ -46,9 +45,9 @@ public class PfxReader {
                     PrivateKey privateKey = (PrivateKey) ks.getKey(alias, null);
                     aliasItem.setPrivateKey(privateKey);
                 }
-
                 certificates.add(aliasItem);
             }
+
         } catch (KeyStoreException | NoSuchAlgorithmException | NoSuchProviderException | UnrecoverableKeyException | CertificateException exception) {
             throw new PfxReaderException("Error when processing PFX file", exception);
         } catch (IOException exception) {

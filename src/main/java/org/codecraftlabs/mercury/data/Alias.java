@@ -22,6 +22,10 @@ public class Alias {
         this.privateKey = privateKey;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void setCertificate(Certificate certificate) {
         this.certificate = certificate;
     }
@@ -36,5 +40,24 @@ public class Alias {
 
     public PrivateKey getPrivateKey() {
         return privateKey;
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+
+        if (! getClass().equals(other.getClass())) {
+            return false;
+        }
+
+        Alias instance = (Alias) other;
+        return instance.name.equals(name);
     }
 }

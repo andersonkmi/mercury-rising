@@ -11,13 +11,10 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.PrivateKey;
-import java.security.PublicKey;
 import java.security.Security;
 import java.security.UnrecoverableKeyException;
-import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Set;
@@ -58,11 +55,5 @@ public class PfxReader {
             throw new PfxReaderException("Error when opening PFX file", exception);
         }
         return certificates;
-    }
-
-    public static void main(String[] args) throws PfxReaderException {
-        PfxReader reader = new PfxReader();
-        Set<Alias> certs = reader.getCertificates("C:\\test.pfx", "test", SecurityProvider.BOUNCY_CASTLE);
-        System.out.println(certs);
     }
 }

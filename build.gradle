@@ -11,7 +11,7 @@ plugins {
     id 'java'
 
     // Apply the application plugin to add support for building a CLI application.
-    id 'application'
+    id 'java-library'
 }
 
 java {
@@ -38,11 +38,6 @@ dependencies {
     testImplementation 'org.hamcrest:hamcrest-library:2.1'
 
     compile 'org.bouncycastle:bcprov-jdk15on:1.65'
-}
-
-application {
-    // Define the main class for the application.
-    mainClassName = 'org.codecraftlabs.mercury.App'
 }
 
 test {

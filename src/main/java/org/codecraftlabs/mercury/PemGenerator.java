@@ -15,10 +15,10 @@ public class PemGenerator {
     public String export(@Nonnull PublicKey publicKey) {
         String content = Base64.getEncoder().encodeToString(publicKey.getEncoded());
         StringBuilder formattedContent = new StringBuilder("-----BEGIN PUBLIC KEY-----" + System.lineSeparator());
-        for (final String row : Splitter.fixedLength(64).split(content)) {
+        for (final String row : Splitter.fixedLength(LENGTH).split(content)) {
             formattedContent.append(row).append(System.lineSeparator());
         }
-        formattedContent = new StringBuilder("-----END PUBLIC KEY-----" + System.lineSeparator());
+        formattedContent.append("-----END PUBLIC KEY-----" + System.lineSeparator());
         return formattedContent.toString();
     }
 
@@ -28,17 +28,17 @@ public class PemGenerator {
         for (final String row : Splitter.fixedLength(LENGTH).split(content)) {
             formattedContent.append(row).append(System.lineSeparator());
         }
-        formattedContent = new StringBuilder("-----END PRIVATE KEY-----" + System.lineSeparator());
+        formattedContent.append("-----END PRIVATE KEY-----" + System.lineSeparator());
         return formattedContent.toString();
     }
 
     public String export(@Nonnull Certificate certificate) throws CertificateEncodingException {
         String content = Base64.getEncoder().encodeToString(certificate.getEncoded());
-        StringBuilder formattedContent = new StringBuilder("-----BEGIN PRIVATE KEY-----" + System.lineSeparator());
+        StringBuilder formattedContent = new StringBuilder("-----BEGIN CERTIFICATE-----" + System.lineSeparator());
         for (final String row : Splitter.fixedLength(64).split(content)) {
             formattedContent.append(row).append(System.lineSeparator());
         }
-        formattedContent = new StringBuilder("-----END PRIVATE KEY-----" + System.lineSeparator());
+        formattedContent.append("-----END CERTIFICATE-----" + System.lineSeparator());
         return formattedContent.toString();
     }
 }

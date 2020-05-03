@@ -21,16 +21,18 @@ import java.util.Set;
 
 public class PfxReader {
     public Set<Alias> getCertificates(String file, String password, SecurityProvider provider) throws PfxReaderException {
-        if (file.isEmpty()) {
+        if (file == null || file.isEmpty()) {
             throw new PfxReaderException("Missing PFX file");
         }
+
+        String pfxPassword = password != null ? password : "";
 
         final Set<Alias> certificates = new HashSet<>();
 
         try {
             Security.addProvider(new BouncyCastleProvider());
             final KeyStore ks = KeyStore.getInstance(provider.getType(), provider.getProviderName());
-            ks.load(new FileInputStream(file), password.toCharArray());
+            ks.load(new FileInputStream(file), pfxPassword.toCharArray());
 
             List<String> aliases = Collections.list(ks.aliases());
             for (String alias : aliases) {

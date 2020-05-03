@@ -9,9 +9,9 @@ import java.security.cert.CertificateEncodingException;
 import java.util.Base64;
 import java.util.Collection;
 
-public class PemGenerator {
-    private static final int LENGTH = 64;
+import static org.codecraftlabs.mercury.util.AppConstants.LENGTH;
 
+public class PemGenerator {
     public String export(PublicKey publicKey) {
         String content = Base64.getEncoder().encodeToString(publicKey.getEncoded());
         StringBuilder formattedContent = new StringBuilder("-----BEGIN PUBLIC KEY-----" + System.lineSeparator());

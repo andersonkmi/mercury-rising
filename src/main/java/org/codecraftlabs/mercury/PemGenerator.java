@@ -1,6 +1,5 @@
 package org.codecraftlabs.mercury;
 
-import org.codecraftlabs.mercury.util.AppConstants;
 import org.codecraftlabs.mercury.util.StringUtil;
 
 import java.security.PrivateKey;

@@ -5,20 +5,12 @@ import java.security.cert.Certificate;
 
 public class Alias {
     final private String name;
-    private Certificate certificate;
-    private PrivateKey privateKey;
-
-    public Alias(String name) {
-        this.name = name;
-    }
-
-    public Alias(String name, Certificate certificate) {
-        this(name);
-        this.certificate = certificate;
-    }
+    final private Certificate certificate;
+    final private PrivateKey privateKey;
 
     public Alias(String name, Certificate certificate, PrivateKey privateKey) {
-        this(name, certificate);
+        this.name = name;
+        this.certificate = certificate;
         this.privateKey = privateKey;
     }
 
@@ -26,16 +18,8 @@ public class Alias {
         return name;
     }
 
-    public void setCertificate(Certificate certificate) {
-        this.certificate = certificate;
-    }
-
     public Certificate getCertificate() {
         return certificate;
-    }
-
-    public void setPrivateKey(PrivateKey privateKey) {
-        this.privateKey = privateKey;
     }
 
     public PrivateKey getPrivateKey() {

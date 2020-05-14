@@ -26,7 +26,6 @@ public class PfxReader {
         }
 
         String pfxPassword = password != null ? password : "";
-
         final Set<Alias> certificates = new HashSet<>();
 
         try {
@@ -36,14 +35,17 @@ public class PfxReader {
 
             List<String> aliases = Collections.list(ks.aliases());
             for (String alias : aliases) {
-                Alias aliasItem = new Alias(alias);
+                X509Certificate certificate = null;
+                PrivateKey privateKey = null;
                 if (ks.isCertificateEntry(alias)) {
-                    X509Certificate cerCert = (X509Certificate) ks.getCertificate(alias);
-                    aliasItem.setCertificate(cerCert);
-                } else if (ks.isKeyEntry(alias)) {
-                    PrivateKey privateKey = (PrivateKey) ks.getKey(alias, null);
-                    aliasItem.setPrivateKey(privateKey);
+                    certificate = (X509Certificate) ks.getCertificate(alias);
                 }
+
+                if (ks.isKeyEntry(alias)) {
+                    privateKey = (PrivateKey) ks.getKey(alias, null);
+                }
+
+                Alias aliasItem = new Alias(alias, certificate, privateKey);
                 certificates.add(aliasItem);
             }
 

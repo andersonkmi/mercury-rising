@@ -1,14 +1,15 @@
 package org.codecraftlabs.mercury;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.security.InvalidParameterException;
 import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public class RSAKeyPairGeneratorTest {
     private RSAKeyPairGenerator rsaKeyPairGenerator;
@@ -27,5 +28,12 @@ public class RSAKeyPairGeneratorTest {
         assertThat(privateKey).isNotNull();
         PublicKey publicKey = keyPair.getPublic();
         assertThat(publicKey).isNotNull();
+    }
+
+    @Test
+    void should_throw_exception_when_key_size_is_invalid() {
+        assertThatExceptionOfType(InvalidKeySizeException.class)
+                .isThrownBy(() -> rsaKeyPairGenerator.generateKeyPair(1))
+                .withMessage("Invalid key size provided");
     }
 }

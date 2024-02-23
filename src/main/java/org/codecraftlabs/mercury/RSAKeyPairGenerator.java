@@ -1,6 +1,7 @@
 package org.codecraftlabs.mercury;
 
 import javax.annotation.Nonnull;
+import java.security.InvalidParameterException;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
@@ -15,6 +16,8 @@ public class RSAKeyPairGenerator {
             return keyPairGenerator.generateKeyPair();
         } catch (NoSuchAlgorithmException exception) {
             throw new InvalidKeyPairGenerationAlgorithmException("Error when generating key pair", exception);
+        } catch (InvalidParameterException exception) {
+            throw new InvalidKeySizeException("Invalid key size provided", exception);
         }
     }
 }

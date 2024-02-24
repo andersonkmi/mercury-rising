@@ -8,6 +8,14 @@ import java.security.NoSuchAlgorithmException;
 
 public class RSAKeyPairGenerator {
     private static final String KEY_PAIR_ALGORITHM = "RSA";
+
+    /**
+     * This method creates an RSA key pair.
+     * @param keySize Key size to be used when creating the pair
+     * @return KeyPair instance
+     * @throws InvalidKeyPairGenerationAlgorithmException if the algorithm is not valid
+     * @throws InvalidKeySizeException if the key size is invalid
+     */
     @Nonnull
     public KeyPair generateKeyPair(int keySize) {
         try {

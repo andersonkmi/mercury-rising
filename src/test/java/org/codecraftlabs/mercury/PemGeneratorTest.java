@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import java.security.KeyPair;
 
+import static org.codecraftlabs.mercury.RSAKeyPairGenerator.KeySize.MOD_1024;
+
 public class PemGeneratorTest {
     private PemGenerator pemGenerator;
     private RSAKeyPairGenerator rsaKeyPairGenerator;
@@ -18,7 +20,7 @@ public class PemGeneratorTest {
 
     @Test
     void export_key_pair_successfully() {
-        KeyPair rsaKeyPair = rsaKeyPairGenerator.generateKeyPair(1024);
+        KeyPair rsaKeyPair = rsaKeyPairGenerator.generateKeyPair(MOD_1024);
         String privateKeyPem = pemGenerator.export(rsaKeyPair.getPrivate());
         Assertions.assertThat(privateKeyPem).isNotNull();
 

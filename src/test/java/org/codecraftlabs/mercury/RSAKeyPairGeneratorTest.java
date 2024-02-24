@@ -8,7 +8,7 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.codecraftlabs.mercury.RSAKeyPairGenerator.KeySize.MOD_1024;
 
 public class RSAKeyPairGeneratorTest {
     private RSAKeyPairGenerator rsaKeyPairGenerator;
@@ -20,19 +20,12 @@ public class RSAKeyPairGeneratorTest {
 
     @Test
     void should_create_key_pair_successfully() {
-        KeyPair keyPair = rsaKeyPairGenerator.generateKeyPair(1024);
+        KeyPair keyPair = rsaKeyPairGenerator.generateKeyPair(MOD_1024);
         assertThat(keyPair).isNotNull();
 
         PrivateKey privateKey = keyPair.getPrivate();
         assertThat(privateKey).isNotNull();
         PublicKey publicKey = keyPair.getPublic();
         assertThat(publicKey).isNotNull();
-    }
-
-    @Test
-    void should_throw_exception_when_key_size_is_invalid() {
-        assertThatExceptionOfType(InvalidKeySizeException.class)
-                .isThrownBy(() -> rsaKeyPairGenerator.generateKeyPair(1))
-                .withMessage("Invalid key size provided");
     }
 }

@@ -10,15 +10,16 @@ import java.util.Base64;
 import java.util.Collection;
 
 import static java.lang.Math.min;
-import static org.codecraftlabs.mercury.util.AppConstants.BEGIN_CERTIFICATE_KEY;
-import static org.codecraftlabs.mercury.util.AppConstants.BEGIN_PRIVATE_KEY;
-import static org.codecraftlabs.mercury.util.AppConstants.BEGIN_PUBLIC_KEY;
-import static org.codecraftlabs.mercury.util.AppConstants.END_CERTIFICATE_KEY;
-import static org.codecraftlabs.mercury.util.AppConstants.END_PRIVATE_KEY;
-import static org.codecraftlabs.mercury.util.AppConstants.END_PUBLIC_KEY;
-import static org.codecraftlabs.mercury.util.AppConstants.LENGTH;
 
 public class PemGenerator {
+    private static final int LENGTH = 64;
+    private static final String BEGIN_PUBLIC_KEY = "-----BEGIN PUBLIC KEY-----";
+    private static final String END_PUBLIC_KEY = "-----END PUBLIC KEY-----";
+    private static final String BEGIN_PRIVATE_KEY = "-----BEGIN PRIVATE KEY-----";
+    private static final String END_PRIVATE_KEY = "-----END PRIVATE KEY-----";
+    private static final String BEGIN_CERTIFICATE_KEY = "-----BEGIN CERTIFICATE KEY-----";
+    private static final String END_CERTIFICATE_KEY = "-----END CERTIFICATE KEY-----";
+
     @Nonnull
     public String export(@Nonnull PublicKey publicKey) {
         StringBuilder formattedContent = new StringBuilder(BEGIN_PUBLIC_KEY + System.lineSeparator());

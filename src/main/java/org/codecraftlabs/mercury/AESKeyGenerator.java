@@ -9,24 +9,37 @@ import java.security.SecureRandom;
 
 public class AESKeyGenerator {
     private static final String KEY_ALGORITHM = "AES";
-    private static final int DEFAULT_KEY_SIZE = 256;
+
+    public enum KeySize {
+        MOD_128(128),
+        MOD_192(192),
+        MOD_256(256);
+
+        private final int size;
+
+        KeySize(int size) {
+            this.size = size;
+        }
+
+        public int size() {
+            return size;
+        }
+    }
 
     @Nonnull
-    public SecretKey generateSecretKey(int keySize) {
+    public SecretKey generateSecretKey(@Nonnull KeySize keySize) {
         try {
             KeyGenerator keyGenerator = KeyGenerator.getInstance(KEY_ALGORITHM);
             SecureRandom secureRandom = new SecureRandom();
-            keyGenerator.init(keySize, secureRandom);
+            keyGenerator.init(keySize.size(), secureRandom);
             return keyGenerator.generateKey();
         } catch (NoSuchAlgorithmException exception) {
             throw new InvalidKeyPairGenerationAlgorithmException("Error when generating key pair", exception);
-        } catch (InvalidParameterException exception) {
-            throw new InvalidKeySizeException("Invalid key size provided", exception);
         }
     }
 
     @Nonnull
     public SecretKey generateSecretKey() {
-        return generateSecretKey(DEFAULT_KEY_SIZE);
+        return generateSecretKey(KeySize.MOD_256);
     }
 }

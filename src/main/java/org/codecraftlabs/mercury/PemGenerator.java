@@ -10,6 +10,7 @@ import java.util.Base64;
 import java.util.Collection;
 
 import static java.lang.Math.min;
+import static java.lang.System.lineSeparator;
 
 public class PemGenerator {
     private static final int LENGTH = 64;
@@ -22,31 +23,34 @@ public class PemGenerator {
 
     @Nonnull
     public String export(@Nonnull PublicKey publicKey) {
-        StringBuilder formattedContent = new StringBuilder(BEGIN_PUBLIC_KEY + System.lineSeparator());
+        StringBuilder formattedContent = new StringBuilder();
+        formattedContent.append(BEGIN_PUBLIC_KEY);
+        formattedContent.append(lineSeparator());
         String content = encodeToString(publicKey.getEncoded());
         Collection<String> items = splitStringChunks(content, LENGTH);
         items.forEach(formattedContent::append);
-        formattedContent.append(END_PUBLIC_KEY).append(System.lineSeparator());
+        formattedContent.append(END_PUBLIC_KEY).append(lineSeparator());
         return formattedContent.toString();
     }
 
     @Nonnull
     public String export(@Nonnull PrivateKey key) {
-        StringBuilder formattedContent = new StringBuilder(BEGIN_PRIVATE_KEY + System.lineSeparator());
+        StringBuilder formattedContent = new StringBuilder(BEGIN_PRIVATE_KEY);
+        formattedContent.append(lineSeparator());
         String content = encodeToString(key.getEncoded());
         Collection<String> items = splitStringChunks(content, LENGTH);
         items.forEach(formattedContent::append);
-        formattedContent.append(END_PRIVATE_KEY).append(System.lineSeparator());
+        formattedContent.append(END_PRIVATE_KEY).append(lineSeparator());
         return formattedContent.toString();
     }
 
     @Nonnull
     public String export(@Nonnull Certificate certificate) throws CertificateEncodingException {
         String content = Base64.getEncoder().encodeToString(certificate.getEncoded());
-        StringBuilder formattedContent = new StringBuilder(BEGIN_CERTIFICATE_KEY + System.lineSeparator());
+        StringBuilder formattedContent = new StringBuilder(BEGIN_CERTIFICATE_KEY + lineSeparator());
         Collection<String> items = splitStringChunks(content, LENGTH);
-        items.forEach(item -> formattedContent.append(item).append(System.lineSeparator()));
-        formattedContent.append(END_CERTIFICATE_KEY).append(System.lineSeparator());
+        items.forEach(item -> formattedContent.append(item).append(lineSeparator()));
+        formattedContent.append(END_CERTIFICATE_KEY).append(lineSeparator());
         return formattedContent.toString();
     }
 

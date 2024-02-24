@@ -19,7 +19,7 @@ public class RSAKeyPairGenerator {
             this.keySize = keySize;
         }
 
-        int getKeySize() {
+        int size() {
             return keySize;
         }
     }
@@ -33,10 +33,15 @@ public class RSAKeyPairGenerator {
     public KeyPair generateKeyPair(@Nonnull KeySize keySize) {
         try {
             KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(KEY_PAIR_ALGORITHM);
-            keyPairGenerator.initialize(keySize.getKeySize());
+            keyPairGenerator.initialize(keySize.size());
             return keyPairGenerator.generateKeyPair();
         } catch (NoSuchAlgorithmException exception) {
             throw new InvalidKeyPairGenerationAlgorithmException("Error when generating key pair", exception);
         }
+    }
+
+    @Nonnull
+    public KeyPair generateKeyPair() {
+        return generateKeyPair(KeySize.MOD_1024);
     }
 }

@@ -13,10 +13,10 @@ import static java.lang.Math.min;
 
 public class PemGenerator {
     private static final int LENGTH = 64;
-    private static final String BEGIN_PUBLIC_KEY = "-----BEGIN PUBLIC KEY-----";
-    private static final String END_PUBLIC_KEY = "-----END PUBLIC KEY-----";
-    private static final String BEGIN_PRIVATE_KEY = "-----BEGIN PRIVATE KEY-----";
-    private static final String END_PRIVATE_KEY = "-----END PRIVATE KEY-----";
+    private static final String BEGIN_PUBLIC_KEY = "-----BEGIN RSA PUBLIC KEY-----";
+    private static final String END_PUBLIC_KEY = "-----END RSA PUBLIC KEY-----";
+    private static final String BEGIN_PRIVATE_KEY = "-----BEGIN RSA PRIVATE KEY-----";
+    private static final String END_PRIVATE_KEY = "-----END RSA PRIVATE KEY-----";
     private static final String BEGIN_CERTIFICATE_KEY = "-----BEGIN CERTIFICATE KEY-----";
     private static final String END_CERTIFICATE_KEY = "-----END CERTIFICATE KEY-----";
 

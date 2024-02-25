@@ -60,7 +60,7 @@ public class PemGenerator {
     }
 
     @Nonnull
-    private Collection<String> splitStringChunks(String str) {
+    private Collection<String> splitStringChunks(@Nonnull String str) {
         ArrayList<String> split = new ArrayList<>();
         for (int i = 0; i <= str.length() / LENGTH; i++) {
             split.add(str.substring(i * LENGTH, min((i + 1) * LENGTH, str.length())));

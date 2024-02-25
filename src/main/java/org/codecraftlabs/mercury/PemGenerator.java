@@ -27,7 +27,7 @@ public class PemGenerator {
         formattedContent.append(BEGIN_PUBLIC_KEY);
         formattedContent.append(lineSeparator());
         String content = encodeToString(publicKey.getEncoded());
-        Collection<String> items = splitStringChunks(content, LENGTH);
+        Collection<String> items = splitStringChunks(content);
         items.forEach(formattedContent::append);
         formattedContent.append(END_PUBLIC_KEY).append(lineSeparator());
         return formattedContent.toString();
@@ -38,7 +38,7 @@ public class PemGenerator {
         StringBuilder formattedContent = new StringBuilder(BEGIN_PRIVATE_KEY);
         formattedContent.append(lineSeparator());
         String content = encodeToString(key.getEncoded());
-        Collection<String> items = splitStringChunks(content, LENGTH);
+        Collection<String> items = splitStringChunks(content);
         items.forEach(formattedContent::append);
         formattedContent.append(END_PRIVATE_KEY).append(lineSeparator());
         return formattedContent.toString();
@@ -48,7 +48,7 @@ public class PemGenerator {
     public String export(@Nonnull Certificate certificate) throws CertificateEncodingException {
         String content = Base64.getEncoder().encodeToString(certificate.getEncoded());
         StringBuilder formattedContent = new StringBuilder(BEGIN_CERTIFICATE_KEY + lineSeparator());
-        Collection<String> items = splitStringChunks(content, LENGTH);
+        Collection<String> items = splitStringChunks(content);
         items.forEach(item -> formattedContent.append(item).append(lineSeparator()));
         formattedContent.append(END_CERTIFICATE_KEY).append(lineSeparator());
         return formattedContent.toString();
@@ -60,10 +60,10 @@ public class PemGenerator {
     }
 
     @Nonnull
-    private Collection<String> splitStringChunks(String str, int size) {
+    private Collection<String> splitStringChunks(String str) {
         ArrayList<String> split = new ArrayList<>();
-        for (int i = 0; i <= str.length() / size; i++) {
-            split.add(str.substring(i * size, min((i + 1) * size, str.length())));
+        for (int i = 0; i <= str.length() / LENGTH; i++) {
+            split.add(str.substring(i * LENGTH, min((i + 1) * LENGTH, str.length())));
         }
         return split;
     }

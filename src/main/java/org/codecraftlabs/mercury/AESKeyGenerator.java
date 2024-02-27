@@ -14,6 +14,7 @@ import java.security.spec.InvalidKeySpecException;
 public class AESKeyGenerator {
     private static final String KEY_ALGORITHM = "AES";
     private static final String PBK_ALGORITHM = "PBKDF2WithHmacSHA256";
+    private static final int ITERATION_COUNT = 1000;
 
     public enum KeySize {
         SIZE_128(128),
@@ -39,7 +40,7 @@ public class AESKeyGenerator {
             keyGenerator.init(keySize.size(), secureRandom);
             return keyGenerator.generateKey();
         } catch (NoSuchAlgorithmException exception) {
-            throw new InvalidKeyPairGenerationAlgorithmException("Error when generating key pair", exception);
+            throw new InvalidKeyPairGenerationAlgorithmException("Error when generating secret key", exception);
         }
     }
 
@@ -54,11 +55,11 @@ public class AESKeyGenerator {
             byte[] salt = new byte[100];
             SecureRandom random = new SecureRandom();
             random.nextBytes(salt);
-            PBEKeySpec pbeKeySpec = new PBEKeySpec(password, salt, 1000, keySize.size());
+            PBEKeySpec pbeKeySpec = new PBEKeySpec(password, salt, ITERATION_COUNT, keySize.size());
             SecretKey pbeKey = SecretKeyFactory.getInstance(PBK_ALGORITHM).generateSecret(pbeKeySpec);
             return new SecretKeySpec(pbeKey.getEncoded(), KEY_ALGORITHM);
         } catch (NoSuchAlgorithmException | InvalidKeySpecException exception) {
-            throw new InvalidKeyPairGenerationAlgorithmException("Error when generating key pair", exception);
+            throw new InvalidKeyPairGenerationAlgorithmException("Error when generating secret key", exception);
         }
     }
 

@@ -3,10 +3,9 @@ package org.codecraftlabs.mercury;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.crypto.SecretKey;
+import java.security.Key;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public class AESKeyGeneratorTest {
     private AESKeyGenerator aesKeyGenerator;
@@ -18,7 +17,13 @@ public class AESKeyGeneratorTest {
 
     @Test
     void should_create_key_successfully() {
-        SecretKey secretKey = aesKeyGenerator.generateSecretKey();
+        Key secretKey = aesKeyGenerator.generateSecretKey();
+        assertThat(secretKey).isNotNull();
+    }
+
+    @Test
+    void should_create_key_with_password_successfully() {
+        Key secretKey = aesKeyGenerator.generateSecretKey("password".toCharArray());
         assertThat(secretKey).isNotNull();
     }
 }

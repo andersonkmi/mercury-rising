@@ -56,8 +56,8 @@ public class AESKeyGenerator {
             SecureRandom random = new SecureRandom();
             random.nextBytes(salt);
             PBEKeySpec pbeKeySpec = new PBEKeySpec(password, salt, ITERATION_COUNT, keySize.size());
-            SecretKey pbeKey = SecretKeyFactory.getInstance(PBK_ALGORITHM).generateSecret(pbeKeySpec);
-            return new SecretKeySpec(pbeKey.getEncoded(), KEY_ALGORITHM);
+            return new SecretKeySpec(SecretKeyFactory.getInstance(PBK_ALGORITHM).generateSecret(pbeKeySpec)
+                    .getEncoded(), KEY_ALGORITHM);
         } catch (NoSuchAlgorithmException | InvalidKeySpecException exception) {
             throw new InvalidKeyPairGenerationAlgorithmException("Error when generating secret key", exception);
         }

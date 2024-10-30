@@ -1,6 +1,6 @@
 package org.codecraftlabs.mercury;
 
-public class PfxReaderException extends Exception {
+public class PfxReaderException extends RuntimeException {
     public PfxReaderException(String message) {
         super(message);
     }

@@ -2,7 +2,6 @@ package org.codecraftlabs.mercury;
 
 import javax.annotation.Nonnull;
 import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
